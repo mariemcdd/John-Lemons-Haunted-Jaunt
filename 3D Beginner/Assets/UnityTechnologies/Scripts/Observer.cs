@@ -10,10 +10,20 @@ public class Observer : MonoBehaviour
     public GameEnding gameEnding;
     bool m_IsPlayerInRange;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        
+        if(other.transform == player)
+        {
+            m_IsPlayerInRange = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.transform == player)
+        {
+            m_IsPlayerInRange = false;
+        }
     }
 
     // Update is called once per frame
@@ -28,25 +38,11 @@ public class Observer : MonoBehaviour
             {
                 if(raycastHit.collider.transform == player)
                 {
-
+                    gameEnding.CaughtPlayer ();
                 }
             }
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject == player)
-        {
-            m_IsPlayerInRange = true;
-        }
-    }
 
-    void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject == player)
-        {
-            m_IsPlayerInRange = false;
-        }
-    }
 }
